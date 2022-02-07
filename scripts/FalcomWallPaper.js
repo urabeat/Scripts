@@ -1,13 +1,13 @@
-// START ===ファルコム壁紙ダウンロード===
+// START ===ファルコム壁紙ダウンロード=== 最終更新:2022/02/07
 // ===ユーザー設定領域===
-const _savePath = 'D:\\Pictures' // 保存フォルダパス ※バックスラッシュは2個必要
+const _savePath = 'D:\\Pictures'; // 保存フォルダパス ※バックスラッシュは2個必要
 // ==================
+const _copy = copy;
 // 表示中のページから、jpg形式の画像ファイルを検索する関数。
-const getPictures = function () { return document.querySelectorAll('img[src$=".jpg"], a[href$=".jpg"]'); }
+const getPictures = () => document.querySelectorAll('img[src$=".jpg"], a[href$=".jpg"]');
 // aria2cの"--input-file"形式のダウンロードリストを作成する関数。
-const createDownloadList = function () {
-	// getPictures()で取得した、すべての画像ファイルからダウンロードリンクを取得する。
-	return Object.values(getPictures()).reduce((text, item) => {
+const createDownloadList = () => {
+	Object.values(getPictures()).reduce((text, item) => {
 		// ダウンロードリンクをhref属性から、href属性が存在しなければsrc属性から取得する。
 		const downloadLink = item.href ? item.href : item.src;
 		// ダウンロードリンクから公開年月とファイル名を取得する。
@@ -19,14 +19,14 @@ const createDownloadList = function () {
 		// aria2c形式でダウンロードリンク、ダウンロードディレクトリ、Cookieオプションを出力する。
 		return `${text}${downloadLink}\n dir=${saveDir}\n header=Cookie: f_opt_in=1\n`;
 	}, '');
-}
+};
 // 入力されたテキストをクリップボードにコピーする関数。
-const outputText = function (text) {
+const outputText = text => {
 	// Chromeのcopyコマンドで、テキストをクリップボードにコピーする。
-	copy(text);
+	_copy(text);
 	// コピーしたテキストの内容と、その完了通知をコンソールに表示する。
 	return console.log(text, '\"以上の内容をクリップボードにコピーしました。\"');
-}
+};
 // ダウンロードリストを作成し、クリップボードにコピーする。
 outputText(createDownloadList());
 // END ===ファルコムダウンロード===
