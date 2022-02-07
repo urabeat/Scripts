@@ -29,4 +29,4 @@ const outputText = text => {
 };
 // ダウンロードリストを作成し、クリップボードにコピーする。
 outputText(createDownloadList());
-// END ===ファルコムダウンロード===
+// END ===ファルコム壁紙ダウンロード===
